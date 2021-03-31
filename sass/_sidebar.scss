@@ -1,0 +1,68 @@
+.sidebar {
+    background-color: $color-primary;
+    grid-column: sidebar-start / sidebar-end;
+    grid-row: 1 / -1;
+    display: flex;
+    justify-content: center;
+
+    @media only screen and (max-width: $bp-large) {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+
+.nav-btn {
+    border: none;
+    border-radius: 0;
+    height: 40px;
+    width: 40px;
+    margin-top: 4rem;
+    padding: 0 0.9rem;
+    background-color: transparent;
+
+    box-shadow: 0 0 10 4 rgba(#000, 0.2);
+
+    span {
+        height: 2px;
+        width: 100%;
+        transition: all 0.5s ease-in-out;
+        display: block;
+        position: relative;
+        background-color: $color-grey-light-1;
+
+        &::before,
+        &::after {
+            background-color: $color-grey-light-1;
+            height: 2px;
+            width: 100%;
+            content: "";
+            display: block;
+            transition: all 0.8s ease-in-out;
+        }
+        &::before {
+            transform: translateY(-1.2rem);
+        }
+        &::after {
+            transform: translateY(1rem);
+        }
+    }
+
+    &:hover {
+        span {
+            background-color: transparent;
+        }
+        span::before {
+            transform: translateY(0) rotate(-135deg);
+        }
+        span::after {
+            transform: translateY(0) rotate(135deg);
+        }
+    }
+
+    @media only screen and (max-width: $bp-large) {
+        margin-top: 0;
+        margin-right: 3rem;
+    }
+}

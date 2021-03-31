@@ -1,0 +1,373 @@
+background-image: linear-gradient(to right bottom, #color1, #color2),
+url("../img/hero.jpg");
+clip-path:polygon(x y ,x y ,x y)
+to specify root font size we should use html
+html{
+    font-size:16px
+}
+================================
+SASS
+=====
+install
+npm install node-sass --save-dev
+npm install concat --save-dev
+npm install postcss-cli --save-dev
+npm install autoprefixer --save-dev
+
+
+{{{variables}}}
+------->>>
+$varName: value
+
+{{{colors}}}
+====>>>>
+colorsFunction
+---------->>>>>
+darken($colorval, 10%)
+lighten($colorVal,10%)
+
+{{{Mixins}}}
+---->>>>
+@mixin mixinName{
+    &::after{
+        content:'';
+        clear:both;
+        display:table;
+    }
+}
+@mixin mixinName($arg){
+    &::after{
+        content:'';
+        clear:both;
+        display:table;
+        color:$arg
+    }
+}
+in any code block use mixin like this:
+@include mixinName($arg);
+# mixin copy its content in ablock of code
+
+{{functions}}
+==============
+@function divide($a ,$b){
+    return $a/$b
+}
+margin: devide(60/2) * 1px
+
+
+{{extend}}
+===========
+%btn-placeholder{
+    padding:20px 15px;
+    margin:10px;
+    display:block;
+}
+.btn-main{
+    @extend %btn-placeholder;
+    &:hover{
+        #code
+    }
+}
+
+[HINT]
+==>>>
+extend is different than mixin it is not copy code into block but it makes an 
+class for these blocks use it so you don't repeat your self
+
+css selector by attributes
+==================
+[class^="col-"] # all classes begins with col-
+[class$="col-"] # all classes ends with col-
+[class*="col-"] # all classes contain col-
+[class^="col-"] {
+    your style here
+}
+=========================
+box-decoration-break:clone
+==> we use it wehen we do the heading of card tours to 
+make the line of heading has the same style like padding
+
+shape-outside
+====================
+works when we use float
+works if we define shape diminsion width and height
+to make words move around the circle like circle
+shape-outside:circle(radius at horizontal vertical)
+shape-outside:circle(50% at 50% 50%)
+=========================================
+{{{websites for free videos cover.co}}}
+object-fit:cover // background-size:cover
+
+-----------------------------------------------------
+
+[form]
+==>
+input::-webkit-input-placeholder{
+    style placeholder here
+}
+input::valid{
+    
+}
+input:focus:invalid{
+    border-bottom:3px solid red
+}
+input:placeholder-shown{
+    style when placeholder shown
+}
+------------------------
+SIBILLING SELECTORS
+-----------------------
+{+}==> adjecent sibiling ==>sibiling that come immidiattely after the element
+{~}==> when found many sibilings
+----------------------------------------------------------
+<div class="parent">
+    <div class="child1"></div>
+    <div class="child2"></div>
+</div>
+.parent{
+    display:table;
+}
+.child1,
+.child2{
+    display:table-cell
+    vertical-align:middle
+}
+hyphens:auto; # ==> make the big word like this big wo- the rest of word in second lines
+.text{
+    column count:2 #==> make big text in two column
+    column gab: 4rem #==> the distance between 2 columns
+    
+}
+####################################
+    ===> RESPONSIVE <===
+####################################
+DeskTop First
+===>>>>
+*we use @media(max-width){}
+** 0px ==> 600px ==> 900px ==> 1200px ==<infiniti>
+use mixin with @content
+
+Mobile First
+===>>>>
+*we use @media(min-width){}
+==============
+[srcset]
+==>>>>
+## give your browser to choose which img to display high resolution or low
+<img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x"/>
+[picture]
+===>>>>
+## give us the abllity to put multible source for one img
+## and choose meia query to display the image
+<picture>
+    <source
+    ## here the browser will isplay the actual resolution 
+    ##from two imgs when width:37.5em
+        srcset="
+            img/logo-green-small-1x.png 1x,
+            img/logo-green-small-2x.png 2x
+        "
+        media="(max-with:37.5em)"
+    />
+
+    <img
+        srcset="
+            img/logo-green-1x.png 1x,
+            img/logo-green-2x.png 2x
+        "
+        alt="full logo"
+        class="footer__logo"
+    />
+</picture>
+-----------------------
+<img
+##  225211..1000w 1000px  if browser 1000w will use large img
+    srcset="
+        img/nat-1-large.jpg 1000w,
+        img/nat-1.jpg        300w
+    "
+    sizes="(max-width:900px) 20vw, (max-width:600px) 30vw ,300px"
+    src="img/nat-1-large.jpg"
+    alt="about-image-1"
+    class="composition__photo composition__photo--p1"
+/>
+======================
+RESPONSIVE images in css
+===================
+@media (min-resolution: 192dpi) and (min-width: 37.5em),
+        (-webkit-min-device-pixel-ratio: 2),
+        (min-width: 125em)  {
+#### dpi == display pixel inches
+####-webkit-min-device-pixel-ratio works in safari min-resolution: 192dpi deosn't work in safari 
+#### background image in high resolution if resolution above 192dpi
+    background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)
+        ),
+        url("../img/hero.jpg");
+}
+
+==============================
+@supports && backdrop filter
+==============================
+backdrop-filter:blur(10px)# works only in safary
+@supports (-webkit-backdrop-filter: blur(10px)) or
+    (backdrop-filter: blur(10px)) {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+}
+/*#####
+useful sites
+1- sizzy.com // to check responsive
+2- caniuse.com // to check new features support
+===================================
+npm install concat --save-dev
+npm install autoprefixer --save-dev
+npm install postcss-cli --save-dev
+
+==================================
+        FLEX__BOX
+        =========
+CONTAINER{
+    display:flex;
+    flex-direction:[row(default) ,row-reverse,column,column-reverse]
+    flex-wrap:[nowrap(default),wrap,wrap-reverse]
+    #works with main axis
+    justify-content:[flex-start(default),flex-end ,center ,space-between,space-around,space-evenly]
+    #works with cross axis
+    align-items:[stretch(default),flex-start,flex-end ,center,baseline]
+    # applies when there is more than one row of flexitems
+    #it controls how the rows is algned with along the cross axis
+    align-content:[flex-start(default),flex-end ,center ,space-between,space-around]
+}
+container_items{
+    align-self:[auto(default),stretch,flex-start,flex-end ,center,baseline]
+    order:0 | integer
+    ## control the width of flexitem
+    {
+        flex-grow:0 |integer
+        flex-shrink:1 | integer
+        flex-basis:auto | length
+    }=== flex:0 1 auto
+
+}
+=========================
+{svg}
+scalbale vector graphic
+svg icon in trillo project from :
+{https://icomoon.io/app}
+html entities css tricks
+======================
+write in html
+============
+.container>.item>.item--$*6
+==>result
+<div class="container">
+    <div class="item">
+        <div class="item--1"></div>
+        <div class="item--2"></div>
+        <div class="item--3"></div>
+        <div class="item--4"></div>
+        <div class="item--5"></div>
+        <div class="item--6"></div>
+    </div>
+</div>
+-------------------------------------------------------
+## Grid module in css
+
+[fr units or fractional units]
+// it means occupy rest of our container
+-------------------------------------------------------
+{parent or container}
+display:grid;
+# HERE WE DEFINE 2 ROW IN OUR CONTAINER
+# DEFINE HEIGHT FOR EVERY ROW
+# 150PX HEIGHT FOR ROW 1 && 200PX HEIGHT FOR ROW 2
+grid-template-rows: [row1-start]150px[row1-end row2-strart] 200px[row2-end];
+# HERE WE DEFINE 4 NUMPER MEANS 4 COLUMNS EVERY COLUM HAS ITS WIDTH 
+grid-template-columns: 25% 25% 25% 25% === repeat(4 ,[col-start]25%[col-end])
+# define the gutter between rows in this container
+row-gap: 20px;
+# define the gutter between columns in this container
+column-gap:20px
+# define the gutter between columns and rows in this container
+
+gap:20px
+# name celles in our grid
+//grid-template-areas:". head head ."[ header will be 50% width  in the center]
+grid-template-areas:"head head head head"
+"box box box sidbar"
+"main main main sidebar"
+"foot foot foot foot";
+.header{
+    grid-area:1/1/2/4 || head;
+}
+.sidebar{
+    grid-area:2/3/4/4 || sidebar;
+}
+-----------------------------------------------------------
+{child elements}
+[positioning items]
+grid-row: startPoint / endPoint
+grid-column: startPoint/endPoint
+grid-area:rowstartPoint/columnStartPoint/rowEndPoint/columnEndPoint
+# important point when we make positionong for item and make another positioning
+# for another item if this another item  take  new position for prev item it want change 
+# it will make new row  else if we define row posion and column position
+grid-row:1/3 ===> take 2 row || row1-start/row2-end;
+grid-column :2/ span 2 ===>take 2 column start from 2point
+grid-column:2/-1 ===>means 2 for end columns
+-------------------------
+IMPLICIT GRIDS [] "VS" EXPLICIT GRIDS
+===>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+IMPLICIT GRIDS [REST ITEMS WHICH WE HADN'T DEFINE IT IN COLUMNS]
+EXPLICIT GRIDS [MAIN GRID WHICH WE DEFINE IT]
+==================
+TO STYLE IMPLICIT GRIDS===>>
+--> grid-auto-rows:80px; // this will give each row 80px height
+# this will make rest items take columns in row not take anew row
+--> grid-auto-flow: column {{auto val is row}}
+--> grid-auto-column:1fr; // this will give each column 1fr width
+-----------------------------
+ALIGN CELLES IN rows===>
+=======
+justify-ITEMS=====>horizontal
+ALIGN-ITEMS======> vertical
+-----------------------
+ALIGN ROWS IN CONTAINER
+=========
+justify-content:horizontal
+ALIGN-content:vertical
+-------------
+ALIGN ITEMS====
+======
+align-self:vertical
+justify-self:horizontal
+
+-------------------------
+minmax(min , max)
+--------------------------------
+min-content==>minimum width
+max-content ===>maximum width
+-------------------------------------
+auto-fit && auto-fill
+=========================
+# this will create columns in row 
+# if we have container with width 1000px this will make 5 column 
+# even you just need 3 col you will get 2 column plus 
+# every column with 200px width
+# so auto-fill devide row to columns depending on colmn width
+grid-template-columns:repeat(auto-fill , 200px)
+# like auto fill but it will create column as you need not aplus 
+# so if you nedd 3 it will make 3 every col with width 200px
+grid-template-columns:repeat(auto-fit , 200px)
+# power of responsive
+# this will make items take all width of row with min width 200px 
+# then wrapped in anothe line
+grid-template-columns:repeat(auto-fit , minmax(200px,1fr))
+
+
+
+
